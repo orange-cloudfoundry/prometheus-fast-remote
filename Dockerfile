@@ -1,12 +1,4 @@
-FROM ubuntu:16.04
-
-ENV DEBIAN_FRONTEND noninteractive
-ENV INITRD No
-
-RUN dpkg-divert --local --rename --add /usr/bin/ischroot
-RUN ln -sf /bin/true /usr/bin/ischroot
-RUN dpkg-divert --local --rename --add /sbin/initctl
-RUN ln -sf /bin/true /sbin/initctl
+FROM alpine:latest
 
 ADD build/bin/adapter /usr/bin/
 
