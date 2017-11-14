@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo -e "\nGenerating Binary..."
+
+CURRENTDIR=`pwd`
+
+go build -o $CURRENTDIR/out/adapter

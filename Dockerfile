@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-ADD build/bin/adapter /usr/bin/
+ADD out/adapter /usr/bin/
 
 RUN chmod +x /usr/bin/adapter
 

@@ -1,0 +1,29 @@
+language: go
+go:
+- 1.9
+script: go test -v ./...
+after_success:
+- bin/build_all
+- docker build -t orangeopensource/prometheus-fast-remote .
+- if [ "x$TRAVIS_TAG" != "x" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  docker build -t orangeopensource/prometheus-fast-remote:$( echo "$TRAVIS_TAG" |
+  cut -c 2- ) .; fi
+- if [ "x$TRAVIS_TAG" != "x" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  docker push orangeopensource/prometheus-fast-remote:$( echo "$TRAVIS_TAG" | cut
+  -c 2- ); fi
+- if [ "x$TRAVIS_TAG" != "x" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  docker push orangeopensource/prometheus-fast-remote; fi
+deploy:
+  provider: releases
+  api_key:
+    secure: NQ0TrnXUpGanSZ+sVVqjXLRM4JMhVrYxMB3tgnQdJXE68eekClAPYhQH03+OXNzvzmzJP0p5kxRElcjW3dpJFml/LCaP9xCWrzqZLjJRaeIo804UzZkJ5kYDEHGPtpPJ6k0gyNK5TyUDtCmUPYEpTbE/x77y7UoICZ/nRdiUiEQoxUlrYMSV5rF5UmtUd0gcIWPvuPGaxMjQ+FofSuffIDItLQgsmXfNPhyyEHD56keWL5zf36Ta4p9lBRs4jf2m+4j2lx12gIqqlOElcJDOJI861T2x4lplAGO7c46NU6F0mnsOfBFuTfFa7tfN68Z6i2A1UtKU18qsQw1ZrqlKo/9QILWNXIn9NrWYnYgIVEqJJMYaw4/r+VEXA83JudNC90BjDHN4g6LhLrYFkEbOsjWVqlGF4SptzuS4cCEIyUUdDr5wzQIVL4aAGnlPsDTjtF+pEig6ox9+GEZ/y2+wiNArsq4d2Ka3QAv6aoj5bdqvgxsQcLNNYCgKDZpHkMIbf8cVTg5XxTmgXfZ/ziV8siWjjsUpzg2sVaMG+eAYJhlXFI0t7qR0x48bQuSyQwvwUWrteyeEU+9rx5UgZJ+0Djh1CxS1pwy2bmrJgueeG3kgTnmnAtRqesU5OPn4li00QzLfUFH7tPYEOdHW39UapC4RaUI1kBpBIcoVtyeiXlI=
+  file:
+    - out/adapter_darwin_amd64
+    - out/adapter_linux_386
+    - out/adapter_linux_amd64
+    - out/adapter_windows_386.exe
+    - out/adapter_windows_amd64.exe
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
