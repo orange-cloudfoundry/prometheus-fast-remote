@@ -1,0 +1,7 @@
+kairos_url: https://kairos.com
+skip_insecure: false
+listen_addr: 127.0.0.1
+log_level: debug
+log_json: false
+no_color: false
+worker: 5
