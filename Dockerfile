@@ -1,10 +1,9 @@
 FROM alpine:latest
 
-ADD out/adapter /usr/bin/
+ADD out/adapter_linux_amd64 /usr/bin/adapter
 
 RUN chmod +x /usr/bin/adapter
 
 ADD launch.sh ./launch
 
-EXPOSE 8080
 CMD ./launch
