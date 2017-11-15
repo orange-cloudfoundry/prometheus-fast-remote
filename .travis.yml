@@ -7,7 +7,7 @@ after_success:
 - bin/build_all
 - docker build -t orangeopensource/prometheus-fast-remote .
 - if [ "x$TRAVIS_TAG" == "x" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
-  docker build -t orangeopensource/gobis-server:dev .;
+  docker build -t orangeopensource/prometheus-fast-remote:dev .;
   docker push orangeopensource/prometheus-fast-remote:dev; fi
 - if [ "x$TRAVIS_TAG" != "x" ]; then docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
   docker build -t orangeopensource/prometheus-fast-remote:$( echo "$TRAVIS_TAG" |
