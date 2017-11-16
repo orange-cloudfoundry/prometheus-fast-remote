@@ -45,7 +45,6 @@ func createClient(skipInsecure bool, workers int) *http.Client {
 				KeepAlive: 30 * time.Second,
 				DualStack: true,
 			}).DialContext,
-			DisableKeepAlives:     true,
 			MaxIdleConns:          100,
 			MaxIdleConnsPerHost:   maxIdleConnsPerHost,
 			IdleConnTimeout:       90 * time.Second,
