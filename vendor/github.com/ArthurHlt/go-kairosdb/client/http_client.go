@@ -223,6 +223,7 @@ func (hc *httpClient) HealthCheck() (*response.Response, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 
 	r := &response.Response{}
 	r.SetStatusCode(resp.StatusCode)
@@ -240,12 +241,11 @@ func (hc *httpClient) sendRequest(url, method string) (*http.Response, error) {
 }
 
 func (hc *httpClient) httpRespToResponse(httpResp *http.Response) (*response.Response, error) {
+	defer httpResp.Body.Close()
 	resp := &response.Response{}
 	resp.SetStatusCode(httpResp.StatusCode)
 
 	if httpResp.StatusCode != http.StatusNoContent {
-		// If the request has failed, then read the response body.
-		defer httpResp.Body.Close()
 		contents, err := ioutil.ReadAll(httpResp.Body)
 		if err != nil {
 			return nil, err

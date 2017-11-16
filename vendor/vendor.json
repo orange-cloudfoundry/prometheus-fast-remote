@@ -5,32 +5,32 @@
 		{
 			"checksumSHA1": "SlbpCBLEDxXcJm/rvoFZbWAQTy4=",
 			"path": "github.com/ArthurHlt/go-kairosdb/builder",
-			"revision": "aa2c623df41b12ed0f3eb01481f9215b30e1f127",
-			"revisionTime": "2017-11-11T23:27:52Z"
+			"revision": "3f8a128399bbd3589a909f5cefb6354bb2b43845",
+			"revisionTime": "2017-11-16T14:20:59Z"
 		},
 		{
 			"checksumSHA1": "026VwGOW83OAALgZlP2MVK6GzXg=",
 			"path": "github.com/ArthurHlt/go-kairosdb/builder/aggregator",
-			"revision": "aa2c623df41b12ed0f3eb01481f9215b30e1f127",
-			"revisionTime": "2017-11-11T23:27:52Z"
+			"revision": "3f8a128399bbd3589a909f5cefb6354bb2b43845",
+			"revisionTime": "2017-11-16T14:20:59Z"
 		},
 		{
 			"checksumSHA1": "1t/vL7iGDzBmQYp+fYetTrVzGys=",
 			"path": "github.com/ArthurHlt/go-kairosdb/builder/utils",
-			"revision": "aa2c623df41b12ed0f3eb01481f9215b30e1f127",
-			"revisionTime": "2017-11-11T23:27:52Z"
+			"revision": "3f8a128399bbd3589a909f5cefb6354bb2b43845",
+			"revisionTime": "2017-11-16T14:20:59Z"
 		},
 		{
-			"checksumSHA1": "P4cBdOKRoXEr9+ZSfvQEo5Dh6xw=",
+			"checksumSHA1": "xGQ6ylFJ/Oq+4QXu2EK5/DA0AOI=",
 			"path": "github.com/ArthurHlt/go-kairosdb/client",
-			"revision": "aa2c623df41b12ed0f3eb01481f9215b30e1f127",
-			"revisionTime": "2017-11-11T23:27:52Z"
+			"revision": "3f8a128399bbd3589a909f5cefb6354bb2b43845",
+			"revisionTime": "2017-11-16T14:20:59Z"
 		},
 		{
 			"checksumSHA1": "MGNgCsbCYOe378jSAEOr5ZBK/HA=",
 			"path": "github.com/ArthurHlt/go-kairosdb/response",
-			"revision": "aa2c623df41b12ed0f3eb01481f9215b30e1f127",
-			"revisionTime": "2017-11-11T23:27:52Z"
+			"revision": "3f8a128399bbd3589a909f5cefb6354bb2b43845",
+			"revisionTime": "2017-11-16T14:20:59Z"
 		},
 		{
 			"checksumSHA1": "wn2shNJMwRZpvuvkf1s7h0wvqHI=",
@@ -351,5 +351,5 @@
 			"revisionTime": "2017-08-12T16:00:11Z"
 		}
 	],
-	"rootPath": "gitlab.si.francetelecom.fr/infrastructure-services/service-mongodb/kairos_remote_adapter"
+	"rootPath": "github.com/orange-cloudfoundry/prometheus-fast-remote"
 }
