@@ -32,11 +32,12 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
-	adapter := NewKairosAdapter(config.KairosUrl, createClient(config.SkipInsecure))
+	adapter := NewKairosAdapter(config.KairosUrl, createClient(config.SkipInsecure, config.Workers))
 	log.Infof("Server is started and listen at %s\n", config.ListenAddr)
 	http.ListenAndServe(config.ListenAddr, NewAdapterHandler(adapter, config.Workers))
 }
-func createClient(skipInsecure bool) *http.Client {
+func createClient(skipInsecure bool, workers int) *http.Client {
+	maxIdleConnsPerHost := workers * 5
 	return &http.Client{
 		Transport: &http.Transport{
 			DialContext: (&net.Dialer{
@@ -44,7 +45,9 @@ func createClient(skipInsecure bool) *http.Client {
 				KeepAlive: 30 * time.Second,
 				DualStack: true,
 			}).DialContext,
+			DisableKeepAlives:     true,
 			MaxIdleConns:          100,
+			MaxIdleConnsPerHost:   maxIdleConnsPerHost,
 			IdleConnTimeout:       90 * time.Second,
 			TLSHandshakeTimeout:   10 * time.Second,
 			ExpectContinueTimeout: 1 * time.Second,
