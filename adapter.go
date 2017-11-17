@@ -21,6 +21,8 @@ import (
 	"github.com/ArthurHlt/go-kairosdb/response"
 	"github.com/prometheus/common/model"
 	"github.com/prometheus/prometheus/prompb"
+	log "github.com/sirupsen/logrus"
+	"math"
 	"net/http"
 	"strings"
 	"time"
@@ -165,6 +167,11 @@ func (a KairosAdapter) Read(req *prompb.ReadRequest) (*prompb.ReadResponse, erro
 	return &resp, nil
 }
 func (a KairosAdapter) Write(s *model.Sample) error {
+	v := float64(s.Value)
+	if math.IsNaN(v) || math.IsInf(v, 0) {
+		log.Debug("Skiping sample, kairosdb doesn't support NaN or infinite value.")
+		return nil
+	}
 	mb := builder.NewMetricBuilder()
 	metricName := "none"
 	tags := make(map[string]string)
@@ -179,7 +186,7 @@ func (a KairosAdapter) Write(s *model.Sample) error {
 	}
 	metric := mb.AddMetric(metricName).AddTags(tags)
 	metric.AddType("double")
-	metric.AddDataPoint(makeTimestamp(s.Timestamp), float64(s.Value))
+	metric.AddDataPoint(makeTimestamp(s.Timestamp), v)
 
 	_, err := a.client.PushMetrics(mb)
 	return err
