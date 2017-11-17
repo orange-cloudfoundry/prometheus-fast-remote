@@ -23,6 +23,7 @@ import (
 	"github.com/prometheus/prometheus/prompb"
 	"net/http"
 	"strings"
+	"time"
 )
 
 type Adapter interface {
@@ -178,7 +179,7 @@ func (a KairosAdapter) Write(s *model.Sample) error {
 	}
 	metric := mb.AddMetric(metricName).AddTags(tags)
 	metric.AddType("double")
-	metric.AddDataPoint(s.Timestamp.Unix(), float64(s.Value))
+	metric.AddDataPoint(makeTimestamp(s.Timestamp), float64(s.Value))
 
 	_, err := a.client.PushMetrics(mb)
 	return err
@@ -253,4 +254,7 @@ func (a KairosAdapter) buildQuery(q *prompb.Query) (builder.QueryBuilder, error)
 		qBuilder.AddMetric(name).AddTags(tags)
 	}
 	return qBuilder, nil
+}
+func makeTimestamp(timestamp model.Time) int64 {
+	return timestamp.UnixNano() / (int64(time.Millisecond) / int64(time.Nanosecond))
 }
