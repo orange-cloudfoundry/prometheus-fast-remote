@@ -132,6 +132,8 @@ func (h adapterHandler) write(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for _, s := range samples {
+		entry.WithField("sample_ts", s.Timestamp).WithField("value", s.Value).
+			Debugf("Sending sample with labels: %s", s.Metric.String())
 		jobsSample <- s
 	}
 	close(jobsSample)
