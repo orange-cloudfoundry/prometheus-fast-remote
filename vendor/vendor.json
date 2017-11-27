@@ -5,32 +5,32 @@
 		{
 			"checksumSHA1": "SlbpCBLEDxXcJm/rvoFZbWAQTy4=",
 			"path": "github.com/ArthurHlt/go-kairosdb/builder",
-			"revision": "3f8a128399bbd3589a909f5cefb6354bb2b43845",
-			"revisionTime": "2017-11-16T14:20:59Z"
+			"revision": "fea1ff7f73d5e58240ed75457ca2449ee53cc690",
+			"revisionTime": "2017-11-27T14:59:05Z"
 		},
 		{
 			"checksumSHA1": "026VwGOW83OAALgZlP2MVK6GzXg=",
 			"path": "github.com/ArthurHlt/go-kairosdb/builder/aggregator",
-			"revision": "3f8a128399bbd3589a909f5cefb6354bb2b43845",
-			"revisionTime": "2017-11-16T14:20:59Z"
+			"revision": "fea1ff7f73d5e58240ed75457ca2449ee53cc690",
+			"revisionTime": "2017-11-27T14:59:05Z"
 		},
 		{
 			"checksumSHA1": "1t/vL7iGDzBmQYp+fYetTrVzGys=",
 			"path": "github.com/ArthurHlt/go-kairosdb/builder/utils",
-			"revision": "3f8a128399bbd3589a909f5cefb6354bb2b43845",
-			"revisionTime": "2017-11-16T14:20:59Z"
+			"revision": "fea1ff7f73d5e58240ed75457ca2449ee53cc690",
+			"revisionTime": "2017-11-27T14:59:05Z"
 		},
 		{
-			"checksumSHA1": "xGQ6ylFJ/Oq+4QXu2EK5/DA0AOI=",
+			"checksumSHA1": "u7zF2LxH9irpk4yB0KDEFIEDuVE=",
 			"path": "github.com/ArthurHlt/go-kairosdb/client",
-			"revision": "3f8a128399bbd3589a909f5cefb6354bb2b43845",
-			"revisionTime": "2017-11-16T14:20:59Z"
+			"revision": "fea1ff7f73d5e58240ed75457ca2449ee53cc690",
+			"revisionTime": "2017-11-27T14:59:05Z"
 		},
 		{
 			"checksumSHA1": "MGNgCsbCYOe378jSAEOr5ZBK/HA=",
 			"path": "github.com/ArthurHlt/go-kairosdb/response",
-			"revision": "3f8a128399bbd3589a909f5cefb6354bb2b43845",
-			"revisionTime": "2017-11-16T14:20:59Z"
+			"revision": "fea1ff7f73d5e58240ed75457ca2449ee53cc690",
+			"revisionTime": "2017-11-27T14:59:05Z"
 		},
 		{
 			"checksumSHA1": "wn2shNJMwRZpvuvkf1s7h0wvqHI=",

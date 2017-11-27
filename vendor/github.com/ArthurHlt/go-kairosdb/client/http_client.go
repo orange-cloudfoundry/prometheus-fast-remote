@@ -20,7 +20,6 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"fmt"
 	"github.com/ArthurHlt/go-kairosdb/builder"
 	"github.com/ArthurHlt/go-kairosdb/response"
 	"regexp"
@@ -114,7 +113,7 @@ func (hc *httpClient) GetMetricNamesReg(metricNameReg string, neq bool) ([]strin
 	if err != nil {
 		return []string{}, err
 	}
-	reg := regexp.MustCompile(fmt.Sprintf("/^%s/", metricNameReg))
+	reg := regexp.MustCompile(metricNameReg)
 	finalNames := make([]string, 0)
 	for _, m := range metricNames.Results {
 		if reg.MatchString(m) == neq {
@@ -130,7 +129,7 @@ func (hc *httpClient) GetTagNamesReg(tagNameReg string, neq bool) ([]string, err
 	if err != nil {
 		return []string{}, err
 	}
-	reg := regexp.MustCompile(fmt.Sprintf("/^%s/", tagNameReg))
+	reg := regexp.MustCompile(tagNameReg)
 	finalNames := make([]string, 0)
 	for _, t := range tagNames.Results {
 		if reg.MatchString(t) == neq {
@@ -175,7 +174,7 @@ func (hc *httpClient) GetTagValuesReg(tagValueReg string, neq bool) ([]string, e
 	if err != nil {
 		return []string{}, err
 	}
-	reg := regexp.MustCompile(fmt.Sprintf("/^%s/", tagValueReg))
+	reg := regexp.MustCompile(tagValueReg)
 	finalNames := make([]string, 0)
 	for _, v := range tagValNames.Results {
 		if reg.MatchString(v) == neq {

@@ -169,7 +169,7 @@ func (a KairosAdapter) Read(req *prompb.ReadRequest) (*prompb.ReadResponse, erro
 func (a KairosAdapter) Write(s *model.Sample) error {
 	v := float64(s.Value)
 	if math.IsNaN(v) || math.IsInf(v, 0) {
-		log.Debug("Skiping sample, kairosdb doesn't support NaN or infinite value.")
+		log.Debug("Skipping sample, kairosdb doesn't support NaN or infinite value.")
 		return nil
 	}
 	mb := builder.NewMetricBuilder()
