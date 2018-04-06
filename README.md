@@ -34,30 +34,27 @@ Supported TSDB :
 
 Read implementation for prometheus remote adapter
 
--**Path**: /read
--**Method**: GET
+- **Path**: `/read`
+- **Method**: `GET`
 
 ### Write
 
 Write implementation for prometheus remote adapter
 
--**Path**: /write
--**Method**: POST
+- **Path**: `/write`
+- **Method**: `POST`
 
 ### Health
 
 Checks the status of each health check. 
 If all are healthy it returns status 200 otherwise it returns 500.
 
--**Path**: /health
-
--**Method**: GET
-
--**Response code**:
+- **Path**: `/health`
+- **Method**: `GET`
+- **Response code**:
   - *success*: 200
-  - *Failure*: 500
-  
--**Response body** (example):
+  - *Failure*: `500`
+- **Response body** (example):
 ```json
 {
   "adapter": "ok",
