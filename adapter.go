@@ -31,6 +31,8 @@ import (
 type Adapter interface {
 	Write(s *model.Sample) error
 	Read(req *prompb.ReadRequest) (*prompb.ReadResponse, error)
+	Healthy() bool
+	Name() string
 }
 
 type KairosAdapter struct {
@@ -98,6 +100,7 @@ func (KairosAdapter) valuesToSamples(datapoints []builder.DataPoint) ([]*prompb.
 	}
 	return samples, nil
 }
+
 func (KairosAdapter) tagsToLabelPairs(name string, tags map[string][]string) []*prompb.Label {
 	pairs := make([]*prompb.Label, 0, len(tags))
 	for k, values := range tags {
@@ -135,6 +138,7 @@ func (KairosAdapter) concatLabels(labels map[string][]string) string {
 	}
 	return strings.Join(pairs, separator)
 }
+
 func (a KairosAdapter) Read(req *prompb.ReadRequest) (*prompb.ReadResponse, error) {
 	labelsToSeries := map[string]*prompb.TimeSeries{}
 	for _, q := range req.Queries {
@@ -166,6 +170,7 @@ func (a KairosAdapter) Read(req *prompb.ReadRequest) (*prompb.ReadResponse, erro
 	}
 	return &resp, nil
 }
+
 func (a KairosAdapter) Write(s *model.Sample) error {
 	v := float64(s.Value)
 	if math.IsNaN(v) || math.IsInf(v, 0) {
@@ -191,6 +196,7 @@ func (a KairosAdapter) Write(s *model.Sample) error {
 	_, err := a.client.PushMetrics(mb)
 	return err
 }
+
 func (a KairosAdapter) buildQuery(q *prompb.Query) (builder.QueryBuilder, error) {
 	// Note: GetMetricNamesNeq, GetMetricNamesReg, GetTagValuesNeq, GetTagValuesReg are cached for 30 seconds by clients to make things faster
 
@@ -262,6 +268,19 @@ func (a KairosAdapter) buildQuery(q *prompb.Query) (builder.QueryBuilder, error)
 	}
 	return qBuilder, nil
 }
+
+func (a KairosAdapter) Healthy() bool {
+	resp, err := a.client.HealthCheck()
+	if err != nil {
+		return false
+	}
+	return resp.GetStatusCode() == 204
+}
+
+func (a KairosAdapter) Name() string {
+	return "kairosdb"
+}
+
 func makeTimestamp(timestamp model.Time) int64 {
 	return timestamp.UnixNano() / (int64(time.Millisecond) / int64(time.Nanosecond))
 }

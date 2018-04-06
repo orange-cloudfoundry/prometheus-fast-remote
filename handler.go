@@ -26,6 +26,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"encoding/json"
 )
 
 type adapterHandler struct {
@@ -33,12 +34,45 @@ type adapterHandler struct {
 	workers int
 }
 
+type HealthResponse struct {
+	Adapter string             `json:"adapter"`
+	Tsdb    TsdbHealthResponse `json:"tsdb"`
+}
+
+type TsdbHealthResponse struct {
+	Name   string `json:"name"`
+	Status string `json:"status"`
+}
+
 func NewAdapterHandler(adapter Adapter, workers int) http.Handler {
 	adaptHandler := &adapterHandler{adapter, workers}
 	r := mux.NewRouter()
 	r.HandleFunc("/write", adaptHandler.write)
 	r.HandleFunc("/read", adaptHandler.read)
+	r.HandleFunc("/health", adaptHandler.health)
 	return r
+}
+
+func (h adapterHandler) health(w http.ResponseWriter, r *http.Request) {
+	healthy := h.adapter.Healthy()
+	statusCode := http.StatusOK
+	status := "ok"
+	if !healthy {
+		status = "ko"
+		statusCode = http.StatusInternalServerError
+	}
+
+	w.WriteHeader(statusCode)
+	w.Header().Add("Content-Type", "application/json")
+
+	b, _ := json.MarshalIndent(HealthResponse{
+		Adapter: "ok",
+		Tsdb: TsdbHealthResponse{
+			Name:   h.adapter.Name(),
+			Status: status,
+		},
+	}, "", "\t")
+	w.Write(b)
 }
 
 func (h adapterHandler) read(w http.ResponseWriter, r *http.Request) {
